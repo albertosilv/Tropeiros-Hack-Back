@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/albertosilv/Tropeiros-Hack-Back#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.12.12",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const url=""
+const url="mongodb+srv://tropeiros:nZkCRcCfB8PBhUkx@cluster0.d3jog.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
