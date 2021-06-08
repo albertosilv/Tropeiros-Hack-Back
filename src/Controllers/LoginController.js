@@ -7,6 +7,8 @@ class Login{
     static async login(req,res){
         const {cpf,senha} = req.body
 
+        const numberRegExp = /^[0-9]*$/
+
         const schema = yup.object().shape({
             cpf: yup.string()
                 .matches(numberRegExp, 'O CPF deve conter apenas números')
@@ -20,6 +22,8 @@ class Login{
         })
         await schema.validate(req.body)
         const user = await User.findOne({ cpf })
+
+        console.log("a")
 
         if (!user) {
             return res.status(400).json({ error: 'Usuário não encontrado' })

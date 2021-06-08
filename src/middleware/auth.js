@@ -1,6 +1,4 @@
 const jwt = require('jsonwebtoken')
-const express = require('express')
-const Token = require('../models/token');
 const authentication = require('./authentication')
 
 module.exports = async (req, res, next) => {

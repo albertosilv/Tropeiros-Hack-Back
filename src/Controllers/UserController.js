@@ -1,20 +1,17 @@
 const yup = require('yup')
-const User = require('../Models/UserModel')
-const Token = require('../Models/TokenModel')
-const bscrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const UserModel = require('../Models/UserModel')
 class User{
 
     static async store(req,res){
         try{
 
             const numberRegExp = /^[0-9]*$/
-            const {id} = req.params
+            //const {id} = req.params
             const {nome,cpf,senha,admin} = req.body
 
-            if(!( await User.findById(id)).admin){
+            /*if(!( await UserModel.findById(id)).admin){
                 res.status(400).json({'Error':'unauthorized User'})
-            }
+            }*/
 
             const schema = yup.object().shape({
                 cpf: yup.string()
@@ -29,20 +26,18 @@ class User{
                     .required('Senha Obrigatória'),
                 admin: yup.boolean().required('Tipo Obrigatário')
             })
-            if(!tipo){
-                admin=false
-            }
 
             await schema.validate(req.body)
 
-            if (await User.findOne({cpf})) {
+            if (await UserModel.findOne({cpf})) {
                 return res.status(400).json({ error: 'CPF já Cadastrado' });
             }
 
-            const userConst = await Student.create(
+            
+            const userConst = await UserModel.create(
                 {
-                    cpf,
                     nome,
+                    cpf,
                     senha,
                     admin
                 }
@@ -54,7 +49,7 @@ class User{
 
         }catch(err){
 
-            return res.status(400).json({'Error':err})
+            return res.status(400).json({'Error':err.message})
 
         }
     }
@@ -64,7 +59,7 @@ class User{
             if(!id){
                 res.status(400).json('ID Obrigatório')
             }
-            const user = await User.findById(id)
+            const user = await UserModel.findById(id)
             user.senha = undefined;
 
             return res.status(200).json(user)
@@ -74,22 +69,22 @@ class User{
     }
     static async index(req,res){
         try{
-            const users = await User.findAll()
+            const users = await UserModel.find()
             users.forEach(e=>{
                 e.senha = undefined
             })
             return res.status(200).json(users)
         }catch(err){
-            return res.status(400).json({'Error':err})
+            return res.status(400).json({'Error':err.message})
         }
     }
     static async update(req,res){
         try{
             const {id}  = req.params
-            if(!( await User.findById(id)).admin){
+            if(!( await UserModel.findById(id)).admin){
                 res.status(400).json({'Error':'unauthorized User'})
             }
-            const user = await User.findByIdAndUpdate(req.body.id, { $set: req.body }, { new: true });
+            const user = await UserModel.findByIdAndUpdate(req.body.id, { $set: req.body }, { new: true });
             return res.status(200).json(user);
         }catch(err){
             return res.status(400).json({'Error':err})
@@ -98,10 +93,10 @@ class User{
     static async destroy(req,res){
         try{
             const {id}  = req.params
-            if(!( await User.findById(id)).admin){
+            if(!( await UserModel.findById(id)).admin){
                 res.status(400).json({'Error':'unauthorized User'})
             }
-            await User.findByIdAndRemove(req.body.id);
+            await UserModel.findByIdAndRemove(req.body.id);
             return res.status(204).json();
         }catch(err){
             return res.status(400).json({'Error':err})

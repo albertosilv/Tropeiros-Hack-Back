@@ -1,4 +1,4 @@
- const Token = require('../models/token');
+ const Token = require('../Models/TokenModel');
 
 module.exports = async (authHeader) => {
     if (!authHeader) {
@@ -13,6 +13,6 @@ module.exports = async (authHeader) => {
         return { error: 'Token malformated' }
     }
     if (await Token.findOne({ token }))
-        return { error: 'Token already exists' }
+        return { error: 'Token already exists and is invalidated' }
     return token
 }

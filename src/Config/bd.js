@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect(process.env.SECRET , {
+
+mongoose.connect(process.env.BD , {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -7,6 +8,10 @@ mongoose.connect(process.env.SECRET , {
 }, (err) => {
   if (err) console.log(err);
 });
+
+mongoose.connection.on('connected', () => {
+  console.log("\nAplicação Conectada ao banco de dados!");
+})
 
 
 mongoose.Promise = global.Promise;

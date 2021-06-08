@@ -22,10 +22,10 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.pre('save', async function(next){
-    const hash = await bcrypt.hash(this.password,10)
-    this.password = hash
+    const hash = await bcrypt.hash(this.senha,10)
+    this.senha = hash
 
-    next()
+    return next();
 })
 const User = mongoose.model('User', UserSchema);
 
