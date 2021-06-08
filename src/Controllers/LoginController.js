@@ -23,8 +23,6 @@ class Login{
         await schema.validate(req.body)
         const user = await User.findOne({ cpf })
 
-        console.log("a")
-
         if (!user) {
             return res.status(400).json({ error: 'Usuário não encontrado' })
         }

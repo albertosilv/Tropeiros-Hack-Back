@@ -6,12 +6,12 @@ class User{
         try{
 
             const numberRegExp = /^[0-9]*$/
-            //const {id} = req.params
+            const id = req.userId;
             const {nome,cpf,senha,admin} = req.body
 
-            /*if(!( await UserModel.findById(id)).admin){
-                res.status(400).json({'Error':'unauthorized User'})
-            }*/
+            if(!( await UserModel.findById(id)).admin){
+                return res.status(400).json({'Error':'unauthorized User'})
+            }
 
             const schema = yup.object().shape({
                 cpf: yup.string()
@@ -55,9 +55,15 @@ class User{
     }
     static async show(req,res){
         try{
+            const idUserLogged = req.userId;
+
+            if(!( await UserModel.findById(idUserLogged)).admin){
+                return res.status(400).json({'Error':'unauthorized User'})
+            }
+
             const {id} = req.params
             if(!id){
-                res.status(400).json('ID Obrigatório')
+                return res.status(400).json('ID do usuário à ser mostrado é obrigatório')
             }
             const user = await UserModel.findById(id)
             user.senha = undefined;
@@ -69,6 +75,12 @@ class User{
     }
     static async index(req,res){
         try{
+            const idUserLogged = req.userId;
+            
+            if(!( await UserModel.findById(idUserLogged)).admin){
+                return res.status(400).json({'Error':'unauthorized User'})
+            }
+
             const users = await UserModel.find()
             users.forEach(e=>{
                 e.senha = undefined
@@ -80,11 +92,14 @@ class User{
     }
     static async update(req,res){
         try{
-            const {id}  = req.params
-            if(!( await UserModel.findById(id)).admin){
-                res.status(400).json({'Error':'unauthorized User'})
+            const idUserLogged = req.userId;
+
+            if(!( await UserModel.findById(idUserLogged)).admin){
+                return res.status(400).json({'Error':'unauthorized User'})
             }
-            const user = await UserModel.findByIdAndUpdate(req.body.id, { $set: req.body }, { new: true });
+
+            const {id} = req.params
+            const user = await UserModel.findByIdAndUpdate(id, { $set: req.body }, { new: true });
             return res.status(200).json(user);
         }catch(err){
             return res.status(400).json({'Error':err})
@@ -92,11 +107,14 @@ class User{
     }
     static async destroy(req,res){
         try{
-            const {id}  = req.params
-            if(!( await UserModel.findById(id)).admin){
-                res.status(400).json({'Error':'unauthorized User'})
+            const idUserLogged = req.userId;
+
+            if(!( await UserModel.findById(idUserLogged)).admin){
+                return res.status(400).json({'Error':'unauthorized User'})
             }
-            await UserModel.findByIdAndRemove(req.body.id);
+
+            const {id} = req.params;
+            await UserModel.findByIdAndRemove(id);
             return res.status(204).json();
         }catch(err){
             return res.status(400).json({'Error':err})
