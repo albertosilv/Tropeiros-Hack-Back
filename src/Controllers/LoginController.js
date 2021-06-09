@@ -1,7 +1,7 @@
 const yup = require('yup')
 const User = require('../Models/UserModel')
 const Token = require('../Models/TokenModel')
-const bscrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 class Login{
     static async login(req,res){
@@ -27,7 +27,7 @@ class Login{
             return res.status(400).json({ error: 'Usuário não encontrado' })
         }
 
-        if (! await bscrypt.compare(senha, user.senha)) {
+        if (! await bcrypt.compare(senha, user.senha)) {
             return res.status(400).json({ error: 'Senha Inválida' })
         }
         user.senha = undefined

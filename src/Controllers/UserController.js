@@ -45,7 +45,7 @@ class User{
 
             userConst.senha = undefined;
 
-            return res.status(200).json(userConst)
+            return res.status(201).json(userConst)
 
         }catch(err){
 
