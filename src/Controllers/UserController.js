@@ -115,7 +115,7 @@ class User{
 
             const {id} = req.params;
             await UserModel.findByIdAndRemove(id);
-            return res.status(204).json();
+            return res.status(204).json({sucess:"Deleted user"});
         }catch(err){
             return res.status(400).json({'Error':err})
         }
