@@ -9,7 +9,7 @@ Router.post('/logout',authentication,LoginController.logout)
 
 Router.get('/:id',authentication,UserController.show)
 Router.get('/',authentication,UserController.index)
-Router.post('/:id',authentication,UserController.store)
+Router.post('/',authentication,UserController.store)
 Router.put('/:id',authentication,UserController.update)
 Router.delete('/:id',authentication,UserController.destroy)
 
