@@ -53,16 +53,26 @@ class Filtering {
                         contFilter = filter.length
                         contTotal = total.length
                     } else { 
-                        const total = await Accidents.find({
+                        const filter = await Accidents.find({
                             tipo
                         })
+                        const  total = await Accidents.find()
+                        contFilter = filter.length
                         contTotal = total.length
                     }
                 }else{
-                    const total = await Accidents.find({
-                        bairro
-                    })
-                    contTotal = total.length
+                    if(total!=null){
+                        const total = await Accidents.find({
+                            bairro
+                        })
+                        const  total = await Accidents.find()
+                        contFilter = filter.length
+                        contTotal = total.length
+                    }else{
+                        const  total = await Accidents.find()
+                        contTotal = total.length
+                    }
+                    
                 }
             }
             return res.status(200).json({
