@@ -66,6 +66,7 @@ class User{
                 return res.status(400).json({error: 'ID do usuário à ser mostrado é obrigatório'})
             }
             const user = await UserModel.findById(id)
+            if(!user) return res.status(200).json({error: 'Usuário não existe!'})
             user.senha = undefined;
 
             return res.status(200).json(user)
@@ -73,6 +74,7 @@ class User{
             return res.status(400).json({error:err.message})
         }
     }
+
     static async index(req,res){
         try{
             const idUserLogged = req.userId;
@@ -90,6 +92,7 @@ class User{
             return res.status(400).json({error:err.message})
         }
     }
+    
     static async update(req,res){
         try{
             const idUserLogged = req.userId;

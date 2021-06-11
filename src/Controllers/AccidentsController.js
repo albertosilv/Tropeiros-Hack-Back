@@ -60,6 +60,7 @@ class Accident{
             const {id} = req.params;
 
             const accident = await AccidentsModel.findById(id);
+            if(!accident) return res.status(200).json({error: 'Acidente não cadastrado'})
 
             return res.status(200).json(accident);
         } catch (err) {
@@ -101,9 +102,9 @@ class Accident{
 
             await schema.validate(req.body);
 
-            const id = req.params;
+            const idParams = req.params.id;
 
-            const accident = await AccidentsModel.findByIdAndUpdate(id, { $set: req.body }, { new: true });
+            const accident = await AccidentsModel.findByIdAndUpdate(idParams, { $set: req.body }, { new: true });
              
             return res.status(200).json(accident);
 
@@ -117,7 +118,7 @@ class Accident{
             const {id} = req.params;
             const accident = await AccidentsModel.findByIdAndRemove(id);
             if(!accident) return res.status(400).json({error: "Acidente não encontrado"})
-            return res.status(204)
+            return res.status(200).json({sucess: 'Usuário deletado'})
 
         }catch(err){
             return res.status(400).json({error:err.message})
