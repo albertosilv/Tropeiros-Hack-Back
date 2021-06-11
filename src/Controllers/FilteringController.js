@@ -61,15 +61,15 @@ class Filtering {
                         contTotal = total.length
                     }
                 }else{
-                    if(total!=null){
+                    if(bairro!=null){
                         const filter = await Accidents.find({
                             bairro
                         })
-                        const  total = await Accidents.find()
+                        const total = await Accidents.find()
                         contFilter = filter.length
                         contTotal = total.length
                     }else{
-                        const total = await Accidents.find()
+                        const  total = await Accidents.find()
                         contTotal = total.length
                     }
                     
