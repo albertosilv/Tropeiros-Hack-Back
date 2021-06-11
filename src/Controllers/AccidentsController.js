@@ -119,7 +119,7 @@ class Accident{
             const {id} = req.params;
             const accident = await AccidentsModel.findByIdAndRemove(id);
             if(!accident) return res.status(400).json({error: "Acidente não encontrado"})
-            return res.status(200).json({sucess: 'Usuário deletado'})
+            return res.status(200).json({sucess: 'Acidente deletado'})
 
         }catch(err){
             return res.status(400).json({error:err.message})
