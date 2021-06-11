@@ -65,7 +65,7 @@ class User{
             if(!nome){
                 return res.status(400).json({error: 'ID do usuário à ser mostrado é obrigatório'})
             }
-            const user = await UserModel.findOne({nome:nome})
+            const user = await UserModel.findOne({nome})
             if(!user) return res.status(200).json({error: 'Usuário não existe!'})
             user.senha = undefined;
 

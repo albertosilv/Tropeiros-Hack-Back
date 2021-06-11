@@ -4,7 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const user = require('./src/Routers/UserRouter');
 const accidents = require('./src/Routers/AccidentsRouter');
-
+const filtering = require('./src/Routers/FilteringRouter')
 const app = express();
 
 app.use(cors());
@@ -14,7 +14,7 @@ app.use(morgan('dev'))
 
 app.use('/user',user);
 app.use('/accidents',accidents)
-
+app.use('/filter',filtering)
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Connection, authorization');
