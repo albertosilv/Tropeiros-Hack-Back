@@ -31,7 +31,7 @@ class Accident{
 
             const accidentRegistered = await AccidentsModel.findOne({id});
   
-            if(accidentRegistered) return res.status(400).json({message: "ID already registered"})
+            if(accidentRegistered) return res.status(400).json({error: "Já foi registrado acidente com esse ID"})
 
             const accidentsConst = await AccidentsModel.create({
                 id,
@@ -47,7 +47,7 @@ class Accident{
                 observacao
             });
 
-            if(!accidentsConst) return res.status(400).json({message: "Unable to create accident"})
+            if(!accidentsConst) return res.status(400).json({error: "Não foi possível cadastrar o acidente"})
 
             return res.status(201).json(accidentsConst);
         }catch(err){
@@ -71,7 +71,7 @@ class Accident{
         try{
             const accidents = await AccidentsModel.find();
 
-            if(accidents.length == 0) return res.status(400).json({message: "There are no registered accidents"})
+            if(accidents.length == 0) return res.status(400).json({error: "Não há acidentes registrados"})
  
             return res.status(200).json(accidents);
         }catch(err){
@@ -116,11 +116,11 @@ class Accident{
         try{
             const {id} = req.params;
             const accident = await AccidentsModel.findByIdAndRemove(id);
-            if(!accident) return res.status(400).json({message: "Accident is not found"})
+            if(!accident) return res.status(400).json({error: "Acidente não encontrado"})
             return res.status(204)
 
         }catch(err){
-            return res.status(400).json({'Error':err.message})
+            return res.status(400).json({error:err.message})
         }
     }
 }
