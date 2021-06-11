@@ -11,12 +11,12 @@ class Filtering {
                     if (tipo != null) {
                         const filter = await Accidents.find({
                             data:
-                                { "$gte": dataInicio, "$lt": data }
+                                { "$gte": dataInicio, "$lt": dataFim }
                             , bairro, tipo
                         })
                         const total = await Accidents.find({
                             data:
-                                { "$gte": dataInicio, "$lt": data }
+                                { "$gte": dataInicio, "$lt": dataFim }
                             , bairro
                         })
                         contFilter = filter.length
@@ -24,12 +24,12 @@ class Filtering {
                     } else {
                         const filter = await Accidents.find({
                             data:
-                                { "$gte": dataInicio, "$lt": data }
+                                { "$gte": dataInicio, "$lt": dataFim }
                             , bairro
                         })
                         const total = await Accidents.find({
                             data:
-                                { "$gte": dataInicio, "$lt": data }
+                                { "$gte": dataInicio, "$lt": dataFim }
                         })
                         contFilter = filter.length
                         contTotal = total.length
@@ -37,7 +37,7 @@ class Filtering {
                 } else {
                     const total = await Accidents.find({
                         data:
-                            { "$gte": dataInicio, "$lt": data }
+                            { "$gte": dataInicio, "$lt": dataFim }
                     })
                     contTotal = total.length
                 }
