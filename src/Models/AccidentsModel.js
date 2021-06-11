@@ -1,11 +1,23 @@
 const mongoose = require('../Config/bd')
 
 const AccidentsSchema = new mongoose.Schema({
-    bairro: {
+    id: {
         type: String,
         required: true
     },
-    rua: {
+    origem: {
+        type: String,
+        required: true
+    },
+    tipo: {
+        type: String,
+        required: true
+    },
+    local: {
+        type: String,
+        required: true
+    },
+    bairro: {
         type: String,
         required: true
     },
@@ -13,13 +25,21 @@ const AccidentsSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    tipo: {
+    cruzamento: {
+        type: String
+    },
+    semaforo: {
+        type: String
+    },
+    pavimento: {
+        type: String
+    },
+    vitima: {
         type: String,
         required: true
     },
-    descricao: {
+    observacao: {
         type: String,
-        required: true
     }
 })
 
