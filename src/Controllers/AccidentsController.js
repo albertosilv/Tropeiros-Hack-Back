@@ -1,6 +1,6 @@
 const yup = require('yup');
 const AccidentsModel = require('../Models/AccidentsModel');
-
+const xls = require('../Repositories/xlsx2')
 class Accident{
 
     static async store(req,res){
