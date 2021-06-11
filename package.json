@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/albertosilv/Tropeiros-Hack-Back.git"
   },
+  "engines": {
+    "node": "15.14.0"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
