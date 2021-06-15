@@ -35,10 +35,16 @@ class Filtering {
                         contTotal = total.length
                     }
                 } else {
+                    const filter = await Accidents.find({
+                        data:
+                            { "$gte": dataInicio, "$lt": dataFim }
+                        , tipo
+                    })
                     const total = await Accidents.find({
                         data:
                             { "$gte": dataInicio, "$lt": dataFim }
                     })
+                    contFilter = filter.length
                     contTotal = total.length
                 }
             } else {

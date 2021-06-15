@@ -1,6 +1,5 @@
 const yup = require('yup');
 const AccidentsModel = require('../Models/AccidentsModel');
-const xls = require('../Repositories/xlsx2')
 class Accident{
 
     static async store(req,res){
@@ -71,8 +70,8 @@ class Accident{
     static  async index(req,res){
         try{
             const {pag} = req.body
-            const accidents = await AccidentsModel.find().skip((pag-1)*7).limit(7);
-
+            const accidents = await AccidentsModel.find()
+            console.log(accidents.length)
             if(accidents.length == 0) return res.status(400).json({error: "Não há acidentes registrados"})
  
             return res.status(200).json(accidents);
