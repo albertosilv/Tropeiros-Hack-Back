@@ -1,5 +1,4 @@
 const Accidents = require('../Models/AccidentsModel');
-const data = require('../Repositories/data');
 class Filtering {
     static async filter(req, res) {
         try {
