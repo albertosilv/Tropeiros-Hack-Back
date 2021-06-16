@@ -12,6 +12,9 @@
     "type": "git",
     "url": "git+https://github.com/albertosilv/Tropeiros-Hack-Back.git"
   },
+  "engines": {
+    "node": "15.14.0"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -27,6 +30,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",
+    "node-xls": "^0.0.8",
+    "node-xlsx": "^0.16.1",
     "yup": "^0.32.9"
   },
   "devDependencies": {

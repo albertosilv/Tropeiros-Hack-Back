@@ -10,7 +10,7 @@ class User{
             const {nome,cpf,senha,admin} = req.body
 
             if(!( await UserModel.findById(id)).admin){
-                return res.status(400).json({'Error':'unauthorized User'})
+                return res.status(400).json({error:'Usuário não autorizado!'})
             }
 
             const schema = yup.object().shape({
@@ -49,7 +49,7 @@ class User{
 
         }catch(err){
 
-            return res.status(400).json({'Error':err.message})
+            return res.status(400).json({error:err.message})
 
         }
     }
@@ -58,51 +58,51 @@ class User{
             const idUserLogged = req.userId;
 
             if(!( await UserModel.findById(idUserLogged)).admin){
-                return res.status(400).json({'Error':'unauthorized User'})
+                return res.status(400).json({error:'Usuário não autorizado!'})
             }
 
-            const {id} = req.params
-            if(!id){
-                return res.status(400).json('ID do usuário à ser mostrado é obrigatório')
+            const {nome} = req.params
+            if(!nome){
+                return res.status(400).json({error: 'ID do usuário à ser mostrado é obrigatório'})
             }
-            const user = await UserModel.findById(id)
+            const user = await UserModel.findOne({nome})
+            if(!user) return res.status(200).json({error: 'Usuário não existe!'})
             user.senha = undefined;
 
             return res.status(200).json(user)
         }catch(err){
-            return res.status(400).json({'Error':err})
+            return res.status(400).json({error:err.message})
         }
     }
+
     static async index(req,res){
         try{
             const idUserLogged = req.userId;
-            
+            const {pag} = req.body
             if(!( await UserModel.findById(idUserLogged)).admin){
-                return res.status(400).json({'Error':'unauthorized User'})
+                return res.status(400).json({error:'Usuário não autorizado!'})
             }
 
-            const users = await UserModel.find()
-            users.forEach(e=>{
-                e.senha = undefined
-            })
+            const users = await UserModel.find().skip((pag-1)*7).limit(7)
             return res.status(200).json(users)
         }catch(err){
-            return res.status(400).json({'Error':err.message})
+            return res.status(400).json({error:err.message})
         }
     }
+    
     static async update(req,res){
         try{
             const idUserLogged = req.userId;
 
             if(!( await UserModel.findById(idUserLogged)).admin){
-                return res.status(400).json({'Error':'unauthorized User'})
+                return res.status(400).json({error:'Usuário não autorizado!'})
             }
 
             const {id} = req.params
             const user = await UserModel.findByIdAndUpdate(id, { $set: req.body }, { new: true });
             return res.status(200).json(user);
         }catch(err){
-            return res.status(400).json({'Error':err})
+            return res.status(400).json({error:err.message})
         }
     }
     static async destroy(req,res){
@@ -110,14 +110,14 @@ class User{
             const idUserLogged = req.userId;
 
             if(!( await UserModel.findById(idUserLogged)).admin){
-                return res.status(400).json({'Error':'unauthorized User'})
+                return res.status(400).json({error:'Usuário não autorizado!'})
             }
 
             const {id} = req.params;
             await UserModel.findByIdAndRemove(id);
-            return res.status(204).json({sucess:"Deleted user"});
+            return res.status(200).json({sucess:"Usuário deletado"});
         }catch(err){
-            return res.status(400).json({'Error':err})
+            return res.status(400).json({error:err.message})
         }
     }
 }
