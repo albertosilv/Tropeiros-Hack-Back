@@ -5,78 +5,63 @@ class Filtering {
             const { dataInicio, dataFim, tipo, bairro } = req.body
             let contFilter = 0;
             let contTotal = 0
+            let filter;
             if (dataInicio != null && dataFim != null) {
                 if (bairro != null) {
                     if (tipo != null) {
-                        const filter = await Accidents.find({
+                        filter = await Accidents.find({
                             data:
                                 { "$gte": dataInicio, "$lt": dataFim }
                             , bairro, tipo
                         })
-                        const total = await Accidents.find({
-                            data:
-                                { "$gte": dataInicio, "$lt": dataFim }
-                            , bairro
-                        })
-                        contFilter = filter.length
-                        contTotal = total.length
                     } else {
-                        const filter = await Accidents.find({
+                        filter = await Accidents.find({
                             data:
                                 { "$gte": dataInicio, "$lt": dataFim }
                             , bairro
                         })
-                        const total = await Accidents.find({
-                            data:
-                                { "$gte": dataInicio, "$lt": dataFim }
-                        })
-                        contFilter = filter.length
-                        contTotal = total.length
                     }
                 } else {
-                    const filter = await Accidents.find({
-                        data:
-                            { "$gte": dataInicio, "$lt": dataFim }
-                        , tipo
-                    })
-                    const total = await Accidents.find()
-                    contFilter = filter.length
-                    contTotal = total.length
+                    if(tipo != null){
+                        filter = await Accidents.find({
+                            data:
+                                { "$gte": dataInicio, "$lt": dataFim }
+                            , tipo
+                        })
+                    }
+                    else{
+                        filter = await Accidents.find({
+                            data:
+                                { "$gte": dataInicio, "$lt": dataFim }
+                        })
+                    }
                 }
             } else {
                 if (tipo != null) {
                     if (bairro != null) {
-                        const filter = await Accidents.find({
+                        filter = await Accidents.find({
                             bairro, tipo
                         })
-                        const total = await Accidents.find({
-                            tipo
-                        })
-                        contFilter = filter.length
-                        contTotal = total.length
+                        console.log(filter.length)
                     } else { 
-                        const filter = await Accidents.find({
+                        filter = await Accidents.find({
                             tipo
                         })
-                        const  total = await Accidents.find()
-                        contFilter = filter.length
-                        contTotal = total.length
                     }
                 }else{
                     if(bairro!=null){
-                        const filter = await Accidents.find({
+                        filter = await Accidents.find({
                             bairro
                         })
-                        const total = await Accidents.find()
-                        contFilter = filter.length
-                        contTotal = total.length
-                    }else{
-                        const  total = await Accidents.find()
-                        contTotal = total.length
                     }
-                    
+                    else{
+                        filter = [];   
+                    }
                 }
             }
+            contFilter = filter.length
+            const total = await Accidents.find()
+            contTotal = total.length
             return res.status(200).json({
                 filter:contFilter,
                 total:contTotal,
