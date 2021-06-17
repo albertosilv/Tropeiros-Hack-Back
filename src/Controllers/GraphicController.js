@@ -1,7 +1,7 @@
 const Accidents = require('../Models/AccidentsModel');
 
 const _ = require('lodash')
-const mesesExtenso = new Array("Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
+const mesesExtenso = new Array("Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez");
 
 class Graphic{
     static async bairros(req,res){
