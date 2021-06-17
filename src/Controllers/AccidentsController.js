@@ -75,13 +75,14 @@ class Accident{
             delete req.query.dataFim
             let filter = 0
             let total = 0
+            let accidents
             if(dataInicio!=null && dataFim){
                 filter = (await Accidents.find({...req.query,
                     data:
                         { "$gte": dataInicio, "$lt": dataFim }
                 })).length
             }else{
-                const accidents = await AccidentsModel.find(req.query).skip((pag-1)*7).limit(7);
+                accidents = await AccidentsModel.find(req.query).skip((pag-1)*7).limit(7);
             }
             total = (await AccidentsModel.find()).length
             if(accidents.length == 0) return res.status(400).json({error: "Não há acidentes registrados"})

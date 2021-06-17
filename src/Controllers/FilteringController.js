@@ -1,7 +1,7 @@
 const Accidents = require('../Models/AccidentsModel');
 const Users = require('../Models/UserModel');
 class Filtering {
-    
+   
     static async filterUsers(req, res) {
         try {
             const {terms} = req.body;
