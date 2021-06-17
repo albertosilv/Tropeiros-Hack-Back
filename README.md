@@ -45,7 +45,7 @@ Depois de instalar as dependencias digite:
 
 ## 🛣️ Rotas <a name="routes"></a>
     
-Para ver as rotas do backend, segue link abaixo da documentação das mesmas:
+Para ver as rotas do backend, clique no link da [documentação](https://docs.google.com/document/d/12YBn8lG4ySczZbGKpACYn5RPAcCt8zGLM5cksoqrr8Y/edit) das mesmas para poder ver.
 
 
 ## ✍️ Autores <a name = "authors"></a>
