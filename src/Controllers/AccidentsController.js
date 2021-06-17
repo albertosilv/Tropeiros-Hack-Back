@@ -70,7 +70,7 @@ class Accident{
     static  async index(req,res){
         try{
             const {pag} = req.params
-            const { dataInicio, dataFim, bairro } = req.query
+            const { dataInicio, dataFim } = req.query
             delete req.query.dataInicio
             delete req.query.dataFim
             let filter = 0
