@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const user = require('./src/Routers/UserRouter');
 const accidents = require('./src/Routers/AccidentsRouter');
 const filtering = require('./src/Routers/FilteringRouter')
+const graphic = require('./src/Routers/GraphicRouter')
 const app = express();
 
 app.use(cors());
@@ -22,7 +23,7 @@ app.use(function (req, res, next) {
 app.use('/user',user);
 app.use('/accidents',accidents)
 app.use('/filter',filtering)
-
+app.use('/graphic',graphic)
 
 const port = process.env.PORT || 4000
 
