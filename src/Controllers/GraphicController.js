@@ -18,7 +18,9 @@ class Graphic{
                     count:value
                 })
             }
+            bairrosArray.sort((a,b)=>b.count-a.count)
             const bairrosFilter = bairrosArray.slice(0,10)
+            bairrosFilter.sort(() => Math.random() - 0.5)
             bairrosFilter.forEach(e=>{
                 if(e.bairro=="null"){
                     e.bairro="OUTROS"
@@ -37,19 +39,26 @@ class Graphic{
             })
             const tipoCount = _.countBy(tipos)
             const tipoArray = []
+            let notId = 0
             for (let [key, value] of Object.entries(tipoCount)) {
-                tipoArray.push({
-                    tipo:key,
-                    count:value
-                })
-            }
-            const tipoFilter = tipoArray.slice(0,10)
-            tipoFilter.forEach(e=>{
-                if(e.tipo=="null"){
-                    e.tipo="OUTROS"
+                if(key=='ni ' || key=='Não identificado' ||key=='null'){
+                    notId=notId+value
+                }else{
+                    tipoArray.push({
+                        tipo:key,
+                        count:value
+                    })
                 }
+                
+            }
+            tipoArray.push({
+                tipo:'Não identificado',
+                count:notId
             })
-            
+            tipoArray.sort((a,b)=>b.count-a.count)
+            const tipoFilter = tipoArray.slice(0,10)
+            tipoFilter.sort(() => Math.random() - 0.5)
+        
             return res.status(200).json(tipoFilter)
         }catch(err){
             return res.status(400).json(err.message)
@@ -69,7 +78,10 @@ class Graphic{
                     count:value
                 })
             }
-            return res.status(200).json(mesesArray)
+            mesesArray.sort((a,b)=>b.count-a.count)
+            const mesesFilter = mesesArray.slice(0,10)
+            mesesFilter.sort(() => Math.random() - 0.5)
+            return res.status(200).json(mesesFilter)
 
         }catch(err){
             return res.status(400).json(err.message)
