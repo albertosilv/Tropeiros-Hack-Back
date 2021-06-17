@@ -69,11 +69,24 @@ class Accident{
 
     static  async index(req,res){
         try{
-            const {pag} = req.query
-            const accidents = await AccidentsModel.find().skip((pag-1)*7).limit(7);
+            const {pag} = req.params
+            const { dataInicio, dataFim, bairro } = req.query
+            delete req.query.dataInicio
+            delete req.query.dataFim
+            let filter = 0
+            let total = 0
+            if(dataInicio!=null && dataFim){
+                filter = (await Accidents.find({...req.query,
+                    data:
+                        { "$gte": dataInicio, "$lt": dataFim }
+                })).length
+            }else{
+                const accidents = await AccidentsModel.find(req.query).skip((pag-1)*7).limit(7);
+            }
+            total = (await AccidentsModel.find()).length
             if(accidents.length == 0) return res.status(400).json({error: "Não há acidentes registrados"})
  
-            return res.status(200).json(accidents);
+            return res.status(200).json({accidents,filter,total});
         }catch(err){
             return res.status(400).json(err.message);
         }

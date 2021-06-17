@@ -3,32 +3,42 @@ const Users = require('../Models/UserModel');
 class Filtering {
     static async filterAccidents(req, res) {
         try {
-            const { dataInicio, dataFim, tipo, bairro } = req.body
+            const { dataInicio, dataFim, bairro } = req.query
             let contFilter = 0;
             let contTotal = 0
             let filter;
+            let total;
             if (dataInicio != null && dataFim != null) {
                 if (bairro != null) {
                     if (tipo != null) {
-                        filter = await Accidents.find({
+                        filter = (await Accidents.find({
                             data:
                                 { "$gte": dataInicio, "$lt": dataFim }
                             , bairro, tipo
-                        })
-                    } else {
-                        filter = await Accidents.find({
+                        })).length
+                        total = (await Accidents.find({
                             data:
                                 { "$gte": dataInicio, "$lt": dataFim }
                             , bairro
-                        })
+                        })).length
+                    } else {
+                        filter = (await Accidents.find({
+                            data:
+                                { "$gte": dataInicio, "$lt": dataFim }
+                            , bairro
+                        })).length
+                        total = (await Accidents.find({
+                            data:
+                                { "$gte": dataInicio, "$lt": dataFim }
+                        })).length
                     }
                 } else {
                     if(tipo != null){
-                        filter = await Accidents.find({
+                        filter = (await Accidents.find({
                             data:
                                 { "$gte": dataInicio, "$lt": dataFim }
                             , tipo
-                        })
+                        })).length
                     }
                     else{
                         filter = await Accidents.find({
@@ -43,7 +53,6 @@ class Filtering {
                         filter = await Accidents.find({
                             bairro, tipo
                         })
-                        console.log(filter.length)
                     } else { 
                         filter = await Accidents.find({
                             tipo
