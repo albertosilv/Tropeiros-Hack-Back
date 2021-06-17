@@ -71,7 +71,6 @@ class Graphic{
                     count:value
                 })
             }
-            mesesArray.sort((a,b)=>b.count-a.count)
             return res.send(mesesArray)
 
             return res.send(_.countBy(meses))
