@@ -78,10 +78,7 @@ class Graphic{
                     count:value
                 })
             }
-            mesesArray.sort((a,b)=>b.count-a.count)
-            const mesesFilter = mesesArray.slice(0,10)
-            mesesFilter.sort(() => Math.random() - 0.5)
-            return res.status(200).json(mesesFilter)
+            return res.status(200).json(mesesArray)
 
         }catch(err){
             return res.status(400).json(err.message)
