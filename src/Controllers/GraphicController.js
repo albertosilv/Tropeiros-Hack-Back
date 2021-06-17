@@ -18,14 +18,13 @@ class Graphic{
                     count:value
                 })
             }
-            bairrosArray.sort((a,b)=>b.count-a.count)
             const bairrosFilter = bairrosArray.slice(0,10)
             bairrosFilter.forEach(e=>{
                 if(e.bairro=="null"){
                     e.bairro="OUTROS"
                 }
             })
-            return res.send(bairrosFilter)
+            return res.status(200).json(bairrosFilter)
         }catch(err){
             return res.status(400).json(err.message)
         }
@@ -44,7 +43,6 @@ class Graphic{
                     count:value
                 })
             }
-            tipoArray.sort((a,b)=>b.count-a.count)
             const tipoFilter = tipoArray.slice(0,10)
             tipoFilter.forEach(e=>{
                 if(e.tipo=="null"){
@@ -52,7 +50,7 @@ class Graphic{
                 }
             })
             
-            return res.send(tipoFilter)
+            return res.status(200).json(tipoFilter)
         }catch(err){
             return res.status(400).json(err.message)
         }
@@ -71,9 +69,8 @@ class Graphic{
                     count:value
                 })
             }
-            return res.send(mesesArray)
+            return res.status(200).json(mesesArray)
 
-            return res.send(_.countBy(meses))
         }catch(err){
             return res.status(400).json(err.message)
         }
